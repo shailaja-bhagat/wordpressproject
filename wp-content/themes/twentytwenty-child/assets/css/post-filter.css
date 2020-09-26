@@ -56,6 +56,10 @@ li.js-filter-item, li.js-filter {
     text-align: center !important;
     margin: 3px 0px;
 }
+a.category-filter.active {
+    background-color: #cd4353;
+    color: #fff;
+}
 /* Media Queries */
 @media only screen and (max-width: 849px) {
     .category-filter, ul.cat-list a.active {

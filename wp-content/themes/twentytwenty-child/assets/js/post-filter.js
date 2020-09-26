@@ -1,7 +1,9 @@
 jQuery(document).ready(function() { 
     jQuery(document).on('click', '.category-filter', function(e) {
 
-        jQuery(this).addClass("active");
+        jQuery(this).siblings().removeClass('active');
+        jQuery(this).addClass('active')
+        // jQuery(this).addClass("active");
         e.preventDefault();
 
         var category = jQuery(this).data('category');

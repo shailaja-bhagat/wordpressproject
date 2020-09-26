@@ -4,7 +4,7 @@
 
 <div class = "categories">
 	<ul class="cat-list">
-		<a class="category-filter" href="">
+		<a class="category-filter active" href="">
 			<li class="js-filter">
 				All
 			</li>
