@@ -1,0 +1,16 @@
+<# if( typeof section !== 'undefined') { #>
+<div class="section-type"> <#= section.type #> Section</div>
+<div class="theme-section-select <#= ['content','sidebar'].includes(section.type) ? 'vertical':'horizontal' #>-select">
+	<div class="section-preview"<#= section.isDynamic() ? ` style="background-size: contain;background-image:url('${section.preview()}')"`:'' #>></div>
+	<div class="section-actions">
+		<div class="section-name"><#= section.name() #></div>
+		<button class="tve-button grey ghost click" data-fn="openSectionsModal"><?php echo __( 'Replace', THEME_DOMAIN ); ?></button>
+		<# if(section.isDynamic()) { #>
+		<button class="tve-button orange click" data-fn="enterEditMode"><?php echo __( 'Edit', THEME_DOMAIN ); ?></button>
+		<button class="tve-button grey ghost click" data-fn="unlinkSection"><?php echo __( 'Unlink', THEME_DOMAIN ); ?></button>
+		<# } else { #>
+		<button class="tve-button orange click" data-fn="openSaveModal"><?php echo __( 'Save', THEME_DOMAIN ); ?></button>
+		<# } #>
+	</div>
+</div>
+<# } #>

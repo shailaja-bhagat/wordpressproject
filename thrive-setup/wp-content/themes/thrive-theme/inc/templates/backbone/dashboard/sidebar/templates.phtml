@@ -1,0 +1,43 @@
+<div class="ttd-sidebar-tab">
+	<h2><?php echo __( 'Page Templates', THEME_DOMAIN ); ?></h2>
+	<p class="info"><?php echo __( 'Manage your page, archive and custom templates', THEME_DOMAIN ); ?>.</p>
+
+	<hr/>
+
+	<!--	<button class="ttd-import dash-tooltip disabled " data-fn="import" data-tooltip-position="bottom" data-tooltip="Coming soon" >-->
+	<!--		--><?php //echo __( 'Import Page Templates', THEME_DOMAIN ); ?>
+	<!--	</button>-->
+	<!--	<button class="ttd-export dash-tooltip disabled " data-fn="export" data-tooltip-position="bottom" data-tooltip="Coming soon" >-->
+	<!--		--><?php //echo __( 'Export Page Templates', THEME_DOMAIN ); ?>
+	<!--	</button>-->
+
+	<div class="ttd-sidebar-templates-filters">
+		<div class="ttd-templates-search-box">
+			<?php Thrive_Views::svg_icon( 't-search' ); ?>
+			<input type="text" id="ttd-templates-search" class="input" data-fn="filterByName" name="" placeholder="Search Template">
+		</div>
+
+		<h3><?php echo __( 'Show Template Types:', THEME_DOMAIN ); ?></h3>
+
+
+		<ul>
+			<li class="single-templates">
+				<input type="checkbox" checked class="change" id="ttd-filter-single" data-fn="showByType" data-type="single">
+				<label for="ttd-filter-single"><?php echo __( 'Single Content', THEME_DOMAIN ); ?></label>
+				<span class="templates-counter">3</span>
+			</li>
+			<li class="list-templates">
+				<input type="checkbox" checked class="change" id="ttd-filter-lists" data-fn="showByType" data-type="list">
+				<label for="ttd-filter-lists"><?php echo __( 'Lists', THEME_DOMAIN ); ?></label>
+				<span class="templates-counter">2</span>
+			</li>
+		</ul>
+	</div>
+
+	<hr/>
+	<!-- For the moment we will remove this functionality -->
+	<!--	<button class="ttd-reset click" data-fn="factory_reset">-->
+	<!--		--><?php //echo __( 'Restore Factory Defaults', THEME_DOMAIN ); ?>
+	<!--	</button>-->
+
+</div>

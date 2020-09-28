@@ -1,0 +1,12 @@
+<div style='background-image: url("<#= this.model.get('thumb') #>")' class="ttd-cloud-skin-img"></div>
+<div class="ttd-csn-container">
+	<div class="ttd-cloud-skin-name"><#= this.model.get( 'name' ) #></div>
+	<div class="ttd-cloud-buttons">
+		<a target="_blank" href="<#= this.model.get( 'preview_url' ) #>" class="ttd-cloud-preview-btn"><?php echo __( 'Preview', THEME_DOMAIN ); ?></a>
+		<div class="ttd-cloud-download-btn click" data-fn="skin_import_step" data-step="cloud-import-download"><?php echo __( 'Download', THEME_DOMAIN ); ?></div>
+	</div>
+
+</div>
+
+
+

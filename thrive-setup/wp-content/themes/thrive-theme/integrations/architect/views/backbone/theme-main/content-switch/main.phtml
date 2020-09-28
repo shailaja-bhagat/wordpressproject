@@ -1,0 +1,22 @@
+<div id="thrive-theme-switch-content">
+	<div class="switch-content-menu click" data-fn="open_dropdown">
+		<span><?php echo __( 'Content: ', THEME_DOMAIN ); ?></span>
+		<span id="switch-content-selected"><?php echo __( 'Choose Content', THEME_DOMAIN ); ?></span>
+	</div>
+
+	<div id="switch-content-dropdown">
+		<div <#= view.isDemoContentVisible() ? '' : 'style="display:none"' #>>
+			<button class="demo-content-button click" data-fn="demo_content"> <?php echo __( 'Demo Content', THEME_DOMAIN ); ?></button>
+			<div class="switch-content-separator"><span><?php echo __( 'OR', THEME_DOMAIN ); ?></span></div>
+		</div>
+		<div>
+			<div class="switch-content-info"><?php echo __( 'Your Website Content', THEME_DOMAIN ); ?></div>
+			<div class="content-switch-search-container">
+				<input class="content-switch-input input" data-fn="content_search" placeholder="<?php echo __( 'Search', THEME_DOMAIN ); ?>"/>
+				<span class="content-switch-icon click" data-fn="clear_input"></span>
+			</div>
+			<ul id="switch-content-select"></ul>
+			<div class="list-button"></div>
+		</div>
+	</div>
+</div>

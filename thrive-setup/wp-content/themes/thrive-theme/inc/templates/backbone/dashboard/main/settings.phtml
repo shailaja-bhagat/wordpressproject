@@ -1,0 +1,31 @@
+<div class="ttd-settings ttd-main-wrapper">
+	<div class="ttd-page-title">
+		<?php echo __( 'Theme Settings', THEME_DOMAIN ); ?>
+	</div>
+
+	<h3 class="ttd-subtitle ttd-settings-title"><?php echo __( 'General Settings', THEME_DOMAIN ); ?> <span class="toggle-arrow"></span></h3>
+
+	<div class="ttd-settings-card">
+		<div class="ttd-general-settings" style="align-items:center">
+			<label for="ttd-inline-css-option"><?php echo __( 'Use Inline CSS', THEME_DOMAIN ); ?></label>
+
+			<input class="change" data-fn="save_option" name="thrive_use_inline_css" type="checkbox" id="ttd-inline-css-option">
+		</div>
+	</div>
+
+	<h3 class="ttd-subtitle ttd-settings-title"><?php echo __( 'Featured Image Settings', THEME_DOMAIN ); ?> <span class="toggle-arrow"></span></h3>
+
+	<div class="ttd-settings-card">
+		<div class="featured-image-settings">
+			<label for="ttd-featured-image-default"><?php echo __( 'Featured Image Default', THEME_DOMAIN ); ?></label>
+
+			<div class="no-c-width">
+				<button id="ttd-featured-image-default" class="click featured-image-preview preview-button" data-fn="open_media" data-type="upload_featured_image"></button>
+
+				<span data-fn="reset_featured_image" class="click ttd-featured-image-reset <#= false ? 'ttd-hide' : '' #> #>">
+					<?php echo __( 'Reset', THEME_DOMAIN ); ?>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

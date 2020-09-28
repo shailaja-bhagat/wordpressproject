@@ -1,0 +1,12 @@
+<div class="ttd-wizard-clip placeholder fw clip-logo">
+	<p class="ttd-wizard-desc mb-20 f-22"><?php echo esc_html__( 'Upload a Logo for your Site', THEME_DOMAIN ); ?></p>
+	<button class="mb-5 click loader-absolute logo-button logo-<#=this.model.get('type')#>" data-fn="openMedia"></button>
+	<span class="ttd-logo-recommended-size-text mb-20"><?php echo __( 'Recommended size: 250px x 40px', THEME_DOMAIN ); ?></span>
+	<button class="click ttd-btn click fill blue mb-10" data-fn="nextStep">
+		<#=this.wizard.getContinueLabel()#>
+		<# if( this.wizard.hasNextStep() ) { #>
+		<?php Thrive_Views::svg_icon( 'chevron-right' ); ?>
+		<span class="step-no"><#=this.wizard.getNextAvailableStepIndex() + 1#></span>
+		<# } #>
+	</button>
+</div>

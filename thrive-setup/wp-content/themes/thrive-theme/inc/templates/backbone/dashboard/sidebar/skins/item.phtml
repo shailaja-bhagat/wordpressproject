@@ -1,0 +1,31 @@
+<div class="ttd-skin-item-template mouseenter  <# if ( this.model.is_active() ) { #>active<# } #>" data-fn="hideNew">
+	<span class="ttd-active-mark"><?php echo __( 'Active', THEME_DOMAIN ); ?></span>
+	<span class="ttd-added-mark"><?php echo __( 'Just Added', THEME_DOMAIN ); ?></span>
+
+	<div class="ttd-skin-item-dots click" data-fn="toggle_dropdown_actions">
+		<span></span>
+		<span></span>
+		<span></span>
+	</div>
+	<span class="ttd-skin-checkmark click" data-fn="save_name"></span>
+	<div class="ttd-skin-item-dropdown">
+		<span class="click" data-fn="edit_name"><?php echo __( 'Rename', THEME_DOMAIN ); ?></span>
+		<# if ( ! this.model.is_active() ) { #>
+		   <span class="click" data-fn="duplicate_skin"><?php echo __( 'Duplicate', THEME_DOMAIN ); ?></span>
+		   <span class="click" data-fn="delete_skin"><?php echo __( 'Delete', THEME_DOMAIN ); ?></span>
+		<# } #>
+	</div>
+
+    <div class="ttd-skin-item-name"><#= this.model.get('name') #></div>
+    <div class="ttd-action-buttons <# if ( this.model.is_active() ) { #>active-buttons<# } #>">
+		<button class="ttd-skin-activate click" data-fn="make_active"><?php echo __( 'Activate', THEME_DOMAIN ); ?></button>
+        <div class="click" data-fn="duplicate_skin"><?php echo __( 'Duplicate', THEME_DOMAIN ); ?></div>
+        <div class="click" data-fn="export_skin"><?php echo __( 'Export', THEME_DOMAIN ); ?></div>
+        <div class="click" data-fn="open_preview" data-url="<#= this.model.get( 'preview_url' ) #>"><?php echo __( 'Preview', THEME_DOMAIN );?></div>
+    </div>
+
+	<span class="ttd-theme-added">
+		<h3><?php echo __( 'New Theme Added!', THEME_DOMAIN ); ?></h3>
+		<p><?php echo __( 'Click here to activate your new theme', THEME_DOMAIN ); ?></p>
+	</span>
+</div>
