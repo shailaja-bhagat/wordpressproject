@@ -17,7 +17,7 @@
 		$categories = get_categories($cat_args); ?>
 	
 		<?php foreach($categories as $cat) : ?>
-		<a class="category-filter" data-category = "<?= $cat->term_id; ?>" href="">
+		<a class="category-filter" data-id="434" data-category = "<?= $cat->term_id; ?>" href="">
 			<li class="js-filter-item">
 				<?= $cat->name; ?>
 			</li>
