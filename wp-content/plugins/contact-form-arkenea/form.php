@@ -35,34 +35,34 @@ if( in_array( $_SERVER['REMOTE_ADDR'], $whitelist) ) {
     <div class="control_row col_parent">
             <div class="control_box w50">
                 <input id="contact_form_fname" name="contact_form_fname" type="text" placeholder="First Name" class="cf_reqMsg"/>
-                <span class="loginError" id="contact_form_fname_error" style="float:none;display:none">The field is required*</span>
+                <p class="loginError" id="contact_form_fname_error" style="float:none;display:none">The field is required*</p>
             </div>
             <div class="control_box w50">
                 <input id="contact_form_lname" name="contact_form_lname" type="text" placeholder="Last Name" class="cf_reqMsg"/>
-                <span class="loginError" id="contact_form_lname_error" style="float:none;display:none">The field is required*</span>
+                <p class="loginError" id="contact_form_lname_error" style="float:none;display:none">The field is required*</p>
             </div>
             <div class="control_box w50">
                 <input id="contact_form_email" type="email" name="contact_form_email" placeholder="Email"  class="cf_reqMsg"/>
-                <span class="loginError" style="float:none;display:none" id="contact_form_email_error" >The field is required*</span>
-                <span class="loginError" style="float:none;display:none" id="errorValidcontact_form_email">The e-mail address entered is invalid</span>
+                <p class="loginError" style="float:none;display:none" id="contact_form_email_error" >The field is required*</p>
+                <p class="loginError" style="float:none;display:none" id="errorValidcontact_form_email">The e-mail address entered is invalid</p>
             </div>
         </div>
 
         <div class="control_row col_parent">
             <div class="control_box w50">
                 <input id="contact_form_phone" type="text" name="contact_form_phone" placeholder="Phone" maxlength = "18" class="cf_reqMsg"/>
-                <span class="loginError" style="float: none;display:none" id="contact_form_phone_error" >The field is required*</span>
+                <p class="loginError" style="float: none;display:none" id="contact_form_phone_error" >The field is required*</p>
             </div>            
             <div class="control_box w50">
                 <input id="contact_form_company" name="contact_form_company" type="text" placeholder="Company/Project"  class="cf_reqMsg"/>
-                <span class="loginError" style="float: none;display:none" id="contact_form_company_error" >The field is required*</span>
+                <p class="loginError" style="float: none;display:none" id="contact_form_company_error" >The field is required*</p>
             </div>
         </div>
 
         <div class="control_row col_parent">
             <div class="control_box w50 message_box">
                 <textarea width="100%" name="contact_form_enquiry" id="contact_form_enquiry" class="inputText-enquiry enq-textarea cf_reqMsg"  placeholder="Message" ></textarea>
-                <span class="loginError" style="float:none;display:none" id="contact_form_enquiry_error">The field is required*</span>
+                <p class="loginError" style="float:none;display:none" id="contact_form_enquiry_error">The field is required*</p>
             </div>
             <?php
                 //echo $_SERVER['HTTP_REFERER'];
