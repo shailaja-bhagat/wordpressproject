@@ -44,8 +44,8 @@ div#result {
 	border: none;
 	font-weight: 700;
 }
-span#contact_form_fname_error, span#contact_form_email_error, span#contact_form_phone_error, span#contact_form_lname_error, 
-span#contact_form_company_error, span#contact_form_enquiry_error, span#errorValidcontact_form_email {
+p#contact_form_fname_error, p#contact_form_email_error, p#contact_form_phone_error, p#contact_form_lname_error, 
+p#contact_form_company_error, p#contact_form_enquiry_error, p#errorValidcontact_form_email {
     color: #bf1515;
 }
 .customContactForm .validation_error{
