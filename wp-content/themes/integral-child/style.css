@@ -11,3 +11,222 @@ Template: integral
 
 /** Theme customization starts here
 ================================================**/
+@font-face { 
+    font-family: Jura-Medium; 
+    src: url(http://localhost/wp-assignment/wp-content/themes/integral-child/Assets/Fonts/Jura-Medium.ttf); 
+    font-weight: normal; 
+}
+@font-face { 
+    font-family: OpenSans-Regular; 
+    src: url(http://localhost/wp-assignment/wp-content/themes/integral-child/Assets/Fonts/OpenSans-Regular.ttf); 
+    font-weight: normal; 
+}
+@font-face { 
+    font-family: OpenSans-Light; 
+    src: url(http://localhost/wp-assignment/wp-content/themes/integral-child/Assets/Fonts/OpenSans-Light.ttf); 
+    font-weight: normal; 
+}
+body{
+    font-family: OpenSans-Regular;
+}
+/* Custom CSS */
+.hero h1{
+    font-family: Jura-Medium;
+    font-size: 60px;
+}
+h2.bigtitle {
+    font-size: 64px;
+    color: #333333;
+}
+.hero .lead.text-center p {
+    font-size: 20px;
+}
+.hero .btn-lg{
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 35px;
+    border-radius: 0px;
+}
+p.subtitle{
+    color: #333333;
+}
+.heading .subtitle{
+    opacity: 1;
+}
+h2.our-story-heading.smalltitle{
+    font-size: 35px;
+    font-family: OpenSans-Light;
+    font-weight: 300;
+    margin-top: 40px;
+}
+div#ourstory_widget {
+    padding: 30px 0px;
+}
+.ra-content{
+    font-size: 16px;
+    color: #333333;
+    text-align: left;
+}
+
+/* OUR TEAM CSS */
+section#our_team{
+    padding: 120px 0px;
+    background-image: url("http://localhost/wp-assignment/wp-content/uploads/2020/10/testimonials_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.row.our-team-section {
+    background-color: #ffffff;
+}
+#ourteam-section, #pridework-section {
+    height: auto;
+    display:flex;
+}
+#our-team-content {
+    background-color: #ffffff;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0px 40px;
+}
+#our-team-image {
+    width: 50%;
+    height: 100%;
+}
+div#ourteam_widget .textwidget.custom-html-widget, 
+section#pride_work .textwidget.custom-html-widget{
+    align-items: stretch;
+    display: flex;
+}
+
+/* OUR STRATEGY CSS */
+section#our_strategy{
+    padding: 120px 0px;
+    background-image: url("http://localhost/wp-assignment/wp-content/uploads/2020/10/technology_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+div#ourstrategy-section {
+    padding: 20px 8% 60px;
+    margin: 0px 8%;
+    background-color: #ffffff;
+}
+
+/* OUR PRIDE WORK CSS*/
+section#pride_work{
+    padding: 120px 0px;
+    background-image: url("http://localhost/wp-assignment/wp-content/uploads/2020/10/achivement_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* RA TECHNOLOGY CSS */
+section#ra_technology{
+    padding: 120px 0px;
+    background-image: url("http://localhost/wp-assignment/wp-content/uploads/2020/10/technology_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+div#ourtechnology-section {
+    padding: 20px 8% 60px;
+    margin: 0px 8%;
+    background-color: #ffffff;
+}
+
+/* IMAGE GALLERY CSS */
+#image_gallery .ngg-galleryoverview.default-view .ngg-gallery-thumbnail a {
+    margin: 0px;
+}
+
+/* CLIENT CSS */
+section#our-clients {
+    padding-bottom: 20px;
+}
+section#clients {
+    padding: 20px 0px;
+    background-color: #c2c2c2;
+}
+section#clients .row.multi-columns-row{
+    display: flex;
+    align-items: center;
+}
+
+/* CUSTOMIZED TAILORING SECTION CSS */
+section#customized-tailoring{
+    padding: 60px 0px;
+    background-image: url("http://localhost/wp-assignment/wp-content/uploads/2020/10/customise_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+div#tailoring-content h2.tailoring-heading.smalltitle, div#tailoring-content p {
+    color: #ffffff;
+    text-align: left;
+}
+div#tailoring-content h2.smalltitle span {
+    text-align: left;
+    margin: 20px 0;
+}
+div#tailoring-content {
+    float: left;
+    width: 80%;
+}
+.tailoring-button {
+    float: right;
+    width: 20%;
+    align-items: flex-end;
+    display: flex;
+}
+div#tailoring-section {
+    width: 100%;
+    display: flex;
+}
+.tailoring-button button {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 12px 50px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    font-size: 16px;
+}
+
+/* CONTACT CSS */
+section#contact p.subtitle {
+    color: #888888;
+}
+.info.contact-info, .info.phone-info {
+    color: #ffffff;
+}
+i.fa.fa-envelope, i.fa.fa-leaf {
+    display: none;
+}
+/* Media Query */
+@media only screen and (min-width: 992px) {
+    .info.more-info {
+        margin-right: 40%;
+    }
+}    
+@media only screen and (max-width: 991px) {
+    #ourteam-section {
+        flex-direction: column-reverse;
+    }
+    #pridework-section{
+        flex-direction: column;
+    }
+    #our-team-content {
+        width: 100%;
+    }
+    #our-team-image {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}

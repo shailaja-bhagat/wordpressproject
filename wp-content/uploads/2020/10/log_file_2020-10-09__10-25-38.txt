@@ -1,0 +1,22 @@
+
+---Upload files---
+Widget file was not uploaded. Error: Specified file failed upload test.
+
+---Upload files---
+Customizer file was not uploaded. Error: Specified file failed upload test.
+
+---Upload files---
+The import files were successfully uploaded!
+Initial max execution time = 120
+Files info:
+Site URL = http://localhost/wp-assignment
+Data file = D:\xampp7.2\htdocs\wp-assignment/wp-content/uploads/2020/10/integral-demo-content-1.xml
+Widget file = not defined!
+Customizer file = not defined!
+
+---Importing content---
+
+Max execution time after content import = 300
+
+---theme-demo-import/after_import---
+
