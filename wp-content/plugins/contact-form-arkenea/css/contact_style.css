@@ -46,7 +46,9 @@ div#result {
 }
 p#contact_form_fname_error, p#contact_form_email_error, p#contact_form_phone_error, p#contact_form_lname_error, 
 p#contact_form_company_error, p#contact_form_enquiry_error, p#errorValidcontact_form_email {
-    color: #bf1515;
+	color: #bf1515;
+	line-height: 22px;
+	padding-bottom: 0px;
 }
 .customContactForm .validation_error{
 	border: 1px solid #bf1515;
