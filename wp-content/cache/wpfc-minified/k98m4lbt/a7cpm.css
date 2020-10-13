@@ -1,0 +1,57 @@
+.loading {
+background: url(//fortifytelehealth.com/wp-content/plugins/contact-form-arkenea/images/loading.gif) no-repeat center transparent !important;
+border: 0 !important;
+color: transparent !important;
+pointer-events: none;
+box-shadow: none !important;
+}
+div#result {
+font-size: 14px;
+margin: 10px 0;
+color: red;
+background: #D8D3D3;
+padding: 5px 10px;
+display:none;
+}
+.inputs_all, select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+width: 100%;
+margin: 0 0 10px;
+padding: 10px;
+}
+.customContactForm .control_box input[type="text"],
+.customContactForm .control_box input[type="email"],
+.customContactForm .control_box textarea,	
+.customContactForm .control_box select {
+width: 92.5%;
+}
+.contact-right-section .customContactForm .control_box input[type="text"],
+.contact-right-section .customContactForm .control_box input[type="email"],
+.contact-right-section .customContactForm .control_box textarea,
+.contact-right-section .customContactForm .control_box select {
+width: 95.5%;
+}
+.customContactForm .control_box textarea {
+min-height: 125px;
+} 
+.customContactForm .control_box {
+margin: 0 0 20px!important;
+}
+.customContactForm .control_box input[type="submit"] {
+background-color: #019cd4;
+color: #ffffff;
+border: none;
+font-weight: 700;
+}
+p#contact_form_fname_error, p#contact_form_email_error, p#contact_form_phone_error, p#contact_form_lname_error, 
+p#contact_form_company_error, p#contact_form_enquiry_error, p#errorValidcontact_form_email {
+color: #bf1515;
+line-height: 22px;
+padding-bottom: 0px;
+}
+.customContactForm .validation_error{
+border: 1px solid #bf1515;
+}
+.customContactForm  input[type="text"], .customContactForm input[type="email"], 
+.customContactForm input[type="tel"], .customContactForm textarea{
+margin: 0px; 	
+}
