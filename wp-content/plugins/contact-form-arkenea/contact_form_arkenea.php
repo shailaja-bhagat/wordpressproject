@@ -260,8 +260,8 @@ function cfa_form_data_process() {
     $to			        = $data['to'] != ''  ? sanitize_email($data['to']) : sanitize_email(get_option('admin_email'));
 	$redirect_page_id   = esc_url($data['redirect_page_id']);
 	$email_subject      = sanitize_text_field($data['email_subject']);
-	$email_bcc_first    = sanitize_text_field($data['email_bcc_first']);
-	$email_bcc_second   = sanitize_text_field($data['email_bcc_second']);
+	$email_bcc_first    = sanitize_email($data['email_bcc_first']);
+	$email_bcc_second   = sanitize_email($data['email_bcc_second']);
 	$type               = 'contact enquiry';
 	
     $ip = "";
