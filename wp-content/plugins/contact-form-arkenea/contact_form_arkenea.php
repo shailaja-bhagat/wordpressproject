@@ -93,6 +93,18 @@ function cfa_menu_html() {
                         </td>
                     </tr>
                     <tr>
+                        <th>BCC Email</th>
+                        <td>
+                            <input type="text" name="cfa_option[form][bcc_first]" size="60" value="<?php echo $options['form']['bcc_first']; ?>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>2nd BCC Email</th>
+                        <td>
+                            <input type="text" name="cfa_option[form][bcc_second]" size="60" value="<?php echo $options['form']['bcc_second']; ?>">
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Email Subject</th>
                         <td>
                             <input type="text" name="cfa_option[form][subject]" size="60" value="<?php echo $options['form']['subject']; ?>">
@@ -248,6 +260,8 @@ function cfa_form_data_process() {
     $to			        = $data['to'] != ''  ? sanitize_email($data['to']) : sanitize_email(get_option('admin_email'));
 	$redirect_page_id   = esc_url($data['redirect_page_id']);
 	$email_subject      = sanitize_text_field($data['email_subject']);
+	$bcc_first          = sanitize_text_field($data['bcc_first']);
+	$bcc_second         = sanitize_text_field($data['bcc_second']);
 	$type = 'contact enquiry';
 	
     $ip = "";
@@ -629,7 +643,7 @@ function cfa_form_data_process() {
     $headers[]  = "From: $fname <$email>" . "\r\n";
     $headers[]  = "Content-type: text/html\r\n";
     $headers[]  = "Reply-To: $fname <$email>\r\n";
-    $headers[]  = "Bcc: <$firstbcc>, <$secbcc>";
+    $headers[]  = "Bcc: <$bcc_first>, <$bcc_second>";
     
     // If email has been process for sending, display a success message
     if ( wp_mail( $to, $subject, $body, $headers ) ) {
