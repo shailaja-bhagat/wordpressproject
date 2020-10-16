@@ -260,8 +260,8 @@ function cfa_form_data_process() {
     $to			        = $data['to'] != ''  ? sanitize_email($data['to']) : sanitize_email(get_option('admin_email'));
 	$redirect_page_id   = esc_url($data['redirect_page_id']);
 	$email_subject      = sanitize_text_field($data['email_subject']);
-	$bcc_first          = sanitize_text_field($data['bcc_first']);
-	$bcc_second         = sanitize_text_field($data['bcc_second']);
+	$bcc_first          = sanitize_text_field($data['email_bcc_first']);
+	$bcc_second         = sanitize_text_field($data['email_bcc_second']);
 	$type = 'contact enquiry';
 	
     $ip = "";
@@ -638,8 +638,6 @@ function cfa_form_data_process() {
     $subject	=	"A $website $type was received via the website";
     $subject    = isset($email_subject) ? $email_subject : $subject;
 
-    $firstbcc   = "shailaja@arkenea.com";
-    $secbcc     = "shailaja23bhagat@gmail.com";
     $headers[]  = "From: $fname <$email>" . "\r\n";
     $headers[]  = "Content-type: text/html\r\n";
     $headers[]  = "Reply-To: $fname <$email>\r\n";
