@@ -24,6 +24,11 @@ padding: 10px;
 .customContactForm .control_box select {
 width: 92.5%;
 }
+.customContactForm .control_box input[type="text"], 
+.customContactForm .control_box textarea, 
+.customContactForm .control_box select {
+text-transform: capitalize;
+}
 .contact-right-section .customContactForm .control_box input[type="text"],
 .contact-right-section .customContactForm .control_box input[type="email"],
 .contact-right-section .customContactForm .control_box textarea,
