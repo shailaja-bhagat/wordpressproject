@@ -624,12 +624,14 @@ function cfa_form_data_process() {
     $subject	=	"A $website $type was received via the website";
     $subject    = isset($email_subject) ? $email_subject : $subject;
 
-    $headers = "From: $fname <$email>" . "\r\n";
-    $headers .= "Content-type: text/html\r\n";
-    $headers .= "Reply-To: $fname <$email>\r\n";
+    $firstbcc   = "shailaja@arkenea.com";
+    $secbcc     = "shailaja23bhagat@gmail.com";
+    $headers[]  = "From: $fname <$email>" . "\r\n";
+    $headers[]  = "Content-type: text/html\r\n";
+    $headers[]  = "Reply-To: $fname <$email>\r\n";
+    $headers[]  = "Bcc: <$firstbcc>, <$secbcc>";
     
     // If email has been process for sending, display a success message
-    $to = "shailajabhagat25@gmail.com";
     if ( wp_mail( $to, $subject, $body, $headers ) ) {
 
         if(!$redirect_page_id) {
