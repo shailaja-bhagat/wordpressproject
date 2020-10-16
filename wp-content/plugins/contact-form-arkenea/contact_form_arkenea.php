@@ -261,9 +261,9 @@ function cfa_form_data_process() {
 	$redirect_page_id   = esc_url($data['redirect_page_id']);
 	$email_subject      = sanitize_text_field($data['email_subject']);
     $email_bcc_first    = sanitize_email($data['email_bcc_first']);
-    echo "<pre> email1: "; print_r($email_bcc_first);echo "</pre>";
+    echo "<pre> email1: "; print_r($data['email_bcc_first']);echo "</pre>";
     $email_bcc_second   = sanitize_email($data['email_bcc_second']);
-    echo "<pre> email2: "; print_r($email_bcc_second);echo "</pre>";
+    echo "<pre> email2: "; print_r($data['email_bcc_second']);echo "</pre>";
     // $email_bcc_first    = "shailajabhagat25@gmail.com";
 	// $email_bcc_second   = "shailaja@arkenea.com";
 	$type               = 'contact enquiry';
