@@ -262,7 +262,7 @@ function cfa_form_data_process() {
 	$email_subject      = sanitize_text_field($data['email_subject']);
 	$bcc_first          = sanitize_text_field($data['email_bcc_first']);
 	$bcc_second         = sanitize_text_field($data['email_bcc_second']);
-	$type = 'contact enquiry';
+	$type               = 'contact enquiry';
 	
     $ip = "";
     $ip=$_SERVER['REMOTE_ADDR'];

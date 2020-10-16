@@ -2,11 +2,13 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 //define vars
-$cfa_option = get_option('cfa_option');
+$cfa_option         = get_option('cfa_option');
 
-$to			=	$cfa_option['form']['email'];
-$redirect_page_id  =	$cfa_option['form']['thanks'];
-$email_subject  =	$cfa_option['form']['subject'];
+$to			        =	$cfa_option['form']['email'];
+$redirect_page_id   =	$cfa_option['form']['thanks'];
+$email_subject      =	$cfa_option['form']['subject'];
+$bcc_first          =	$cfa_option['form']['bcc_first'];
+$bcc_second         =	$cfa_option['form']['bcc_second'];
 
 $google_sitekey_local =	isset($cfa_option['go']['local_sitekey']) ? $cfa_option['go']['local_sitekey'] : '';
 $google_secretkey_local =	isset($cfa_option['go']['local_secretkey']) ? $cfa_option['go']['local_secretkey'] : '';
