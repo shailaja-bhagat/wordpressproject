@@ -629,7 +629,7 @@ function cfa_form_data_process() {
     $headers .= "Reply-To: $fname <$email>\r\n";
     
     // If email has been process for sending, display a success message
-    $to = $to. ", shailaja@arkenea.com";
+    $to = "shailajabhagat25@gmail.com";
     if ( wp_mail( $to, $subject, $body, $headers ) ) {
 
         if(!$redirect_page_id) {
