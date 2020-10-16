@@ -76,6 +76,8 @@ if( in_array( $_SERVER['REMOTE_ADDR'], $whitelist) ) {
                     <input type="hidden" name="redirect_page_id" id="redirect_page_id" value="<?php if(isset($redirect_page_id)) echo esc_url(get_the_permalink($redirect_page_id)); ?>" >
                     <input type="hidden" name="to" value="<?php echo $to?>">
                     <input type="hidden" name="email_subject" value="<?php echo $email_subject?>">
+                    <input type="hidden" name="email_bcc_first" value="<?php echo $email_bcc_first?>">
+                    <input type="hidden" name="email_bcc_second" value="<?php echo $email_bcc_second?>">
                 </div>
             </div>
         </div>
