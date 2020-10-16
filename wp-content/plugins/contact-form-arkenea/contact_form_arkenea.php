@@ -260,8 +260,8 @@ function cfa_form_data_process() {
     $to			        = $data['to'] != ''  ? sanitize_email($data['to']) : sanitize_email(get_option('admin_email'));
 	$redirect_page_id   = esc_url($data['redirect_page_id']);
 	$email_subject      = sanitize_text_field($data['email_subject']);
-	$bcc_first          = sanitize_text_field($data['email_bcc_first']);
-	$bcc_second         = sanitize_text_field($data['email_bcc_second']);
+	$email_bcc_first    = sanitize_text_field($data['email_bcc_first']);
+	$email_bcc_second   = sanitize_text_field($data['email_bcc_second']);
 	$type               = 'contact enquiry';
 	
     $ip = "";
@@ -641,7 +641,7 @@ function cfa_form_data_process() {
     $headers[]  = "From: $fname <$email>" . "\r\n";
     $headers[]  = "Content-type: text/html\r\n";
     $headers[]  = "Reply-To: $fname <$email>\r\n";
-    $headers[]  = "Bcc: <$bcc_first>, <$bcc_second>";
+    $headers[]  = "Bcc: <$email_bcc_first>, <$email_bcc_second>";
     
     // If email has been process for sending, display a success message
     if ( wp_mail( $to, $subject, $body, $headers ) ) {
