@@ -10,9 +10,6 @@ $email_subject      =	$cfa_option['form']['subject'];
 $email_bcc_first    =	$cfa_option['form']['bcc_first'];
 $email_bcc_second   =	$cfa_option['form']['bcc_second'];
 
-echo "<pre> email11: "; print_r($email_bcc_first);echo "</pre>";
-echo "<pre> email12: "; print_r($email_bcc_second);echo "</pre>";
-
 $google_sitekey_local =	isset($cfa_option['go']['local_sitekey']) ? $cfa_option['go']['local_sitekey'] : '';
 $google_secretkey_local =	isset($cfa_option['go']['local_secretkey']) ? $cfa_option['go']['local_secretkey'] : '';
 
