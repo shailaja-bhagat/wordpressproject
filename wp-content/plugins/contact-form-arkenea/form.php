@@ -8,7 +8,6 @@ $to			        =	$cfa_option['form']['email'];
 $redirect_page_id   =	$cfa_option['form']['thanks'];
 $email_subject      =	$cfa_option['form']['subject'];
 $email_bcc_first    =	$cfa_option['form']['bcc_first'];
-$email_bcc_second   =	$cfa_option['form']['bcc_second'];
 
 $google_sitekey_local =	isset($cfa_option['go']['local_sitekey']) ? $cfa_option['go']['local_sitekey'] : '';
 $google_secretkey_local =	isset($cfa_option['go']['local_secretkey']) ? $cfa_option['go']['local_secretkey'] : '';
@@ -77,7 +76,7 @@ if( in_array( $_SERVER['REMOTE_ADDR'], $whitelist) ) {
                     <input type="hidden" name="to" value="<?php echo $to?>">
                     <input type="hidden" name="email_subject" value="<?php echo $email_subject?>">
                     <input type="hidden" name="email_bcc_first" value="<?php echo $email_bcc_first?>">
-                    <input type="hidden" name="email_bcc_second" value="<?php echo $email_bcc_second?>">
+                    
                 </div>
             </div>
         </div>
