@@ -9,6 +9,7 @@
 final class ITSEC_Setup {
 	private static $protected = [
 		4117,
+		4121,
 	];
 
 	/**

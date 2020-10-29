@@ -261,7 +261,8 @@ final class ITSEC_Security_Check_Scanner {
 		$hash   = hash_hmac( 'sha1', "{$action}|{$exp}", wp_salt() );
 
 		$response = wp_remote_post( admin_url( 'admin-post.php' ), array(
-			'body' => array(
+			'sslverify' => apply_filters( 'https_local_ssl_verify', false ),
+			'body'      => array(
 				'action' => $action,
 				'hash'   => $hash,
 				'exp'    => $exp,

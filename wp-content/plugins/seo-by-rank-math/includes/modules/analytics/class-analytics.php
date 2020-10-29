@@ -2,7 +2,7 @@
 /**
  * The Analytics Module
  *
- * @since      0.9.0
+ * @since      1.0.49
  * @package    RankMath
  * @subpackage RankMath\modules
  * @author     Rank Math <support@rankmath.com>
@@ -19,6 +19,7 @@ use RankMath\SEO_Analysis\SEO_Analyzer;
 use MyThemeShop\Admin\Page;
 use MyThemeShop\Helpers\Arr;
 use MyThemeShop\Helpers\Conditional;
+use RankMath\Google\Console;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -220,63 +221,70 @@ class Analytics extends Base {
 			true
 		);
 
-		$preference = [
-			'topPosts'        => [
-				'seo_score'       => false,
-				'schemas_in_use'  => false,
-				'impressions'     => true,
-				'pageviews'       => true,
-				'clicks'          => false,
-				'position'        => true,
-				'positionHistory' => true,
-			],
-			'siteAnalytics'   => [
-				'seo_score'       => true,
-				'schemas_in_use'  => true,
-				'impressions'     => false,
-				'pageviews'       => true,
-				'links'           => true,
-				'clicks'          => false,
-				'position'        => false,
-				'positionHistory' => false,
-			],
-			'performance'     => [
-				'seo_score'       => true,
-				'schemas_in_use'  => true,
-				'impressions'     => true,
-				'pageviews'       => true,
-				'clicks'          => false,
-				'position'        => true,
-				'positionHistory' => false,
-			],
-			'keywords'        => [
-				'impressions'     => true,
-				'ctr'             => true,
-				'clicks'          => true,
-				'position'        => true,
-				'positionHistory' => true,
-			],
-			'topKeywords'     => [
-				'impressions'     => true,
-				'ctr'             => true,
-				'clicks'          => true,
-				'position'        => true,
-				'positionHistory' => true,
-			],
-			'trackKeywords'   => [
-				'impressions'     => true,
-				'ctr'             => true,
-				'clicks'          => true,
-				'position'        => true,
-				'positionHistory' => true,
-			],
-			'rankingKeywords' => [
-				'impressions' => true,
-				'ctr'         => true,
-				'clicks'      => false,
-				'position'    => true,
-			],
-		];
+		$this->action( 'admin_footer', 'dequeue_cmb2' );
+
+		$preference = apply_filters(
+			'rank_math/analytics/user_preference',
+			[
+				'topPosts'        => [
+					'seo_score'       => false,
+					'schemas_in_use'  => false,
+					'impressions'     => true,
+					'pageviews'       => true,
+					'clicks'          => false,
+					'position'        => true,
+					'positionHistory' => true,
+				],
+				'siteAnalytics'   => [
+					'seo_score'       => true,
+					'schemas_in_use'  => true,
+					'impressions'     => false,
+					'pageviews'       => true,
+					'links'           => true,
+					'clicks'          => false,
+					'position'        => false,
+					'positionHistory' => false,
+				],
+				'performance'     => [
+					'seo_score'       => true,
+					'schemas_in_use'  => true,
+					'impressions'     => true,
+					'pageviews'       => true,
+					'ctr'             => false,
+					'clicks'          => true,
+					'position'        => true,
+					'positionHistory' => true,
+				],
+				'keywords'        => [
+					'impressions'     => true,
+					'ctr'             => false,
+					'clicks'          => true,
+					'position'        => true,
+					'positionHistory' => true,
+				],
+				'topKeywords'     => [
+					'impressions'     => true,
+					'ctr'             => true,
+					'clicks'          => true,
+					'position'        => true,
+					'positionHistory' => true,
+				],
+				'trackKeywords'   => [
+					'impressions'     => true,
+					'ctr'             => true,
+					'clicks'          => true,
+					'position'        => true,
+					'positionHistory' => true,
+				],
+				'rankingKeywords' => [
+					'impressions'     => true,
+					'ctr'             => false,
+					'clicks'          => true,
+					'position'        => true,
+					'positionHistory' => true,
+				],
+			]
+		);
 
 		$user_id = get_current_user_id();
 		if ( metadata_exists( 'user', $user_id, 'rank_math_analytics_table_columns' ) ) {
@@ -288,9 +296,6 @@ class Analytics extends Base {
 
 		Helper::add_json( 'userColumnPreference', $preference );
 
-		// Connection.
-		Helper::add_json( 'isAdsenseConnected', false );
-
 		// Last Updated.
 		$updated = get_option( 'rank_math_analytics_last_updated', false );
 		$updated = $updated ? date_i18n( get_option( 'date_format' ), $updated ) : '';
@@ -300,12 +305,24 @@ class Analytics extends Base {
 	}
 
 	/**
+	 * Dequeue cmb2.
+	 */
+	public function dequeue_cmb2() {
+		wp_dequeue_script( 'cmb2-scripts' );
+	}
+
+	/**
 	 * Register admin page.
 	 */
 	public function register_admin_page() {
+		$dot_color = '#ed5e5e';
+		if ( Console::is_console_connected() ) {
+			$dot_color = '#11ac84';
+		}
+
 		$this->page = new Page(
 			'rank-math-analytics',
-			esc_html__( 'Analytics', 'rank-math' ) . '<span class="rm-menu-new update-plugins" style="background: #11ac84; margin-left: 5px;min-width: 10px;height: 10px;margin-top: 5px;"><span class="plugin-count"></span></span>',
+			esc_html__( 'Analytics', 'rank-math' ) . '<span class="rm-menu-new update-plugins" style="background: ' . $dot_color . '; margin-left: 5px;min-width: 10px;height: 10px;margin-top: 5px;"><span class="plugin-count"></span></span>',
 			[
 				'position'   => 5,
 				'parent'     => 'rank-math',

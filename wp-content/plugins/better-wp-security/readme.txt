@@ -1,9 +1,9 @@
 === iThemes Security (formerly Better WP Security) ===
 Contributors: ithemes, chrisjean, mattdanner, timothyblynjacobs
-Tags: security, security plugin, malware, hack, secure, block, SSL, admin, htaccess, lockdown, login, protect, protection, anti virus, attack, injection, login security, maintenance, permissions, prevention, authentication, administration, password, brute force, ban, permissions, bots, user agents, xml rpc, security log
-Requires at least: 5.2
+Tags: security plugin, malware scanner, login security, malware prevention, hack prevention, brute force protection, anti-virus, secure, password protection, ban, bad bots, audit log
+Requires at least: 5.4
 Tested up to: 5.5
-Stable tag: 7.8.0
+Stable tag: 7.9.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -188,6 +188,22 @@ Free support may be available with the help of the community in the <a href="htt
 5. Free malware scan powered by Sucuri SiteCheck.
 
 == Changelog ==
+
+= 7.9.0 =
+* Important: iThemes Security requires WordPress 5.4 or later.
+* Enhancement: Add a setting for configuring the number of bans added to the server config files (.htaccess/nginx.conf).
+* Enhancement: Store the time a ban was added, and the lockout module responsible for the ban.
+* Enhancement: Overwrite Restrict Content Pro's detected IP address with the IP detected by iThemes Security.
+* Tweak: Disable SSL verification when performing the Security Check Loopback test. Some hosts can't properly verify loopback requests. This verification is unnecessary in this circumstance, and disabling SSL verification aligns iThemes Security with default WordPress loopback behavior.
+* Bug Fix: PHP warnings when invalid entries are stored in the WordPress Cron storage.
+* Bug Fix: Update the list of tables added to wpdb.
+* Bug Fix: Remove default value for text columns. This caused an issue on MySQL 8 and is unnecessary.
+* Bug Fix: Missing borders in the sidebar widgets on WordPress 5.5.
+* Bug Fix: Notice actions didn't trigger when "Hide Admin Bar" is enabled.
+* Bug Fix: Some users would be force to choose a strong password twice in a row.
+* Bug Fix: Warning when saving the Ban Users module outside of the Settings Page without passing the legacy host_list setting.
+* Bug Fix: Passwords Requirements compatibility with Restrict Content Pro.
+* Bug Fix: PHP warnings that may occur when initializing default user groups on a new installation.
 
 = 7.8.0 =
 * New Feature: The new, improved WordPress Security Site Scan powered by iThemes checks if Google has detected malware and added your site to their threat list.
@@ -606,5 +622,5 @@ Free support may be available with the help of the community in the <a href="htt
 
 == Upgrade Notice ==
 
-= 7.8.0 =
-Version 7.8.0 contains new features and bug fixes. It is recommended for all users.
+= 7.9.0 =
+Version 7.9.0 contains new features and bug fixes. It is recommended for all users.

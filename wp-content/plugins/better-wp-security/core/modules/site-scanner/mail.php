@@ -82,7 +82,7 @@ class ITSEC_Site_Scanner_Mail {
 		$log_url = '';
 
 		if ( $scan->get_id() ) {
-			$log_url = add_query_arg( 'id', $scan->get_id(), ITSEC_Core::get_logs_page_url() );
+			$log_url = ITSEC_Core::get_logs_page_url( [ 'id' => $scan->get_id() ] );
 			$log_url = ITSEC_Mail::filter_admin_page_url( $log_url );
 		}
 

@@ -901,7 +901,9 @@ class ITSEC_Lib_Login_Interstitial {
 	 * @return string
 	 */
 	private function get_base_wp_login_url() {
+		add_filter( 'rcp_do_login_hijack', '__return_false', 100 );
 		$wp_login_url = set_url_scheme( wp_login_url(), 'login_post' );
+		remove_filter( 'rcp_do_login_hijack', '__return_false', 100 );
 
 		if ( ( defined( 'WPE_PLUGIN_URL' ) || isset( $_GET['wpe-login'] ) ) && ! preg_match( '/[&?]wpe-login=/', $wp_login_url ) ) {
 			$wpe_login    = isset( $_GET['wpe-login'] ) ? $_GET['wpe-login'] : 'true';

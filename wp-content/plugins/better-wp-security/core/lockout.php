@@ -142,7 +142,7 @@ final class ITSEC_Lockout {
 
 		$host = ITSEC_Lib::get_ip();
 
-		if ( ITSEC_Lib::is_ip_blacklisted() ) {
+		if ( ITSEC_Lib::is_ip_banned() ) {
 			$this->execute_lock( new Execute_Lock\Host_Context( new Configurable( 'blacklist' ), $host ) );
 		}
 
@@ -582,7 +582,7 @@ final class ITSEC_Lockout {
 				if ( $whitelisted ) {
 					ITSEC_Log::add_notice( 'lockout', 'whitelisted-host-triggered-blacklist', array_merge( $log_data, compact( 'blacklist_period', 'blacklist_count', 'host_count' ) ) );
 				} else {
-					$this->blacklist_ip( $host );
+					$this->blacklist_ip( $host, $context );
 					ITSEC_Log::add_action( 'lockout', 'host-triggered-blacklist', array_merge( $log_data, compact( 'blacklist_period', 'blacklist_count', 'host_count' ) ) );
 				}
 			}
@@ -1062,6 +1062,44 @@ final class ITSEC_Lockout {
 	}
 
 	/**
+	 * Inserts an IP address into the htaccess ban list.
+	 *
+	 * @since 4.0
+	 *
+	 * @param string               $ip      The IP address to ban.
+	 * @param Lockout\Context|null $context The lockout context that caused the ban.
+	 *
+	 * @return boolean False if the IP is whitelisted, true otherwise.
+	 */
+	public function blacklist_ip( $ip, Lockout\Context $context = null ) {
+		$ip = sanitize_text_field( $ip );
+
+		if ( ITSEC_Lib::is_ip_banned( $ip ) ) {
+			// Already blacklisted.
+			return true;
+		}
+
+		if ( ITSEC_Lib::is_ip_whitelisted( $ip ) ) {
+			// Cannot blacklist a whitelisted IP.
+			return false;
+		}
+
+		do_action_deprecated( 'itsec-new-blacklisted-ip', array( $ip ), '6.7.0', 'itsec_new_banned_ip' );
+
+		/**
+		 * Fires when a new IP has been banned.
+		 *
+		 * This is primarily used by the Ban Users module.
+		 *
+		 * @param string               $ip      The IP address.
+		 * @param Lockout\Context|null $context The lockout context that caused the ban.
+		 */
+		do_action( 'itsec_new_banned_ip', $ip, $context );
+
+		return true;
+	}
+
+	/**
 	 * Check if the current user is temporarily whitelisted.
 	 *
 	 * @return bool
@@ -1080,35 +1118,6 @@ final class ITSEC_Lockout {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Inserts an IP address into the htaccess ban list.
-	 *
-	 * @since 4.0
-	 *
-	 * @param $ip
-	 *
-	 * @return boolean False if the IP is whitelisted, true otherwise.
-	 */
-	public function blacklist_ip( $ip ) {
-		$ip = sanitize_text_field( $ip );
-
-		if ( ITSEC_Lib::is_ip_blacklisted( $ip ) ) {
-			// Already blacklisted.
-			return true;
-		}
-
-		if ( ITSEC_Lib::is_ip_whitelisted( $ip ) ) {
-			// Cannot blacklist a whitelisted IP.
-			return false;
-		}
-
-		// The following action allows modules to handle the blacklist as needed. This is primarily useful for the Ban
-		// Users module.
-		do_action( 'itsec-new-blacklisted-ip', $ip );
-
-		return true;
 	}
 
 	/**

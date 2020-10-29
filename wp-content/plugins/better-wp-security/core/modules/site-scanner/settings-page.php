@@ -32,7 +32,7 @@ class ITSEC_Settings_Page_Sidebar_Widget_Site_Scanner extends ITSEC_Settings_Pag
 
 		?>
 		<p><?php echo $description; ?></p>
-		<p><?php printf( __( 'Results of previous scans can be found on the <a href="%s">logs page</a>.', 'better-wp-security' ), ITSEC_Core::get_logs_page_url( $module ) ); ?></p>
+		<p><?php printf( __( 'Results of previous scans can be found on the <a href="%s">logs page</a>.', 'better-wp-security' ), ITSEC_Core::get_logs_page_url( array( 'module' => $module ) ) ); ?></p>
 		<div class="itsec-site-scanner-scan-results-wrapper"></div>
 		<?php $form->add_button( 'start', array( 'value' => $button, 'class' => 'button-primary' ) ); ?>
 		<?php

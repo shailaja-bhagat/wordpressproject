@@ -2,7 +2,7 @@
 /**
  * The Analytics Module
  *
- * @since      0.9.0
+ * @since      1.0.49
  * @package    RankMath
  * @subpackage RankMath\modules
  * @author     Rank Math <support@rankmath.com>
@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Summary class.
  */
-class Summary extends Objects {
+class Summary {
 
 	/**
 	 * Get Optimization stats.
@@ -122,10 +122,10 @@ class Summary extends Objects {
 			'difference' => (float) \number_format( $stats->ctr - $old_stats->ctr, 2 ),
 		];
 
-		$stats->keywords  = $this->get_keywords_summary();
-		$stats->pageviews = $this->get_pageviews_summary();
-		$stats->graph     = $this->get_analytics_summary_graph();
-		$stats->adsense   = $this->get_adsense_summary();
+		$stats->keywords = $this->get_keywords_summary();
+		$stats->graph    = $this->get_analytics_summary_graph();
+
+		$stats = apply_filters( 'rank_math/analytics/summary', $stats );
 
 		return array_filter( (array) $stats );
 	}
@@ -151,40 +151,11 @@ class Summary extends Objects {
 			->where( 'clicks', '>', 0 )
 			->one();
 
-		$summary->pageviews = DB::traffic()
-			->selectSum( 'pageviews', 'pageviews' )
-			->whereBetween( 'created', [ $this->start_date, $this->end_date ] )
-			->getVar();
+		$summary = apply_filters( 'rank_math/analytics/posts_summary', $summary );
 
 		set_transient( $cache_key, $summary, DAY_IN_SECONDS );
 
 		return $summary;
-	}
-
-	/**
-	 * Get adsense summary.
-	 *
-	 * @return array
-	 */
-	public function get_adsense_summary() {
-		$earnings = DB::adsense()
-			->selectSum( 'earnings', 'earnings' )
-			->whereBetween( 'created', [ $this->start_date, $this->end_date ] )
-			->getVar();
-
-		$old_earnings = DB::adsense()
-			->selectSum( 'earnings', 'earnings' )
-			->whereBetween( 'created', [ $this->compare_start_date, $this->compare_end_date ] )
-			->getVar();
-
-		$earnings     = ! empty( $earnings ) ? $earnings : 0;
-		$old_earnings = ! empty( $old_earnings ) ? $old_earnings : 0;
-
-		return [
-			'total'      => $earnings,
-			'previous'   => $old_earnings,
-			'difference' => $earnings - $old_earnings,
-		];
 	}
 
 	/**
@@ -196,9 +167,9 @@ class Summary extends Objects {
 		global $wpdb;
 
 		$query = $wpdb->prepare(
-			"SELECT ROUND(AVG(keywords),0) as keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr
+			"SELECT ROUND(AVG(keywords),0) as keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr, AVG(position) AS position
 			 FROM (
-			    SELECT count(DISTINCT(query)) AS keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr
+			    SELECT count(DISTINCT(query)) AS keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr, AVG(position) AS position
 				FROM {$wpdb->prefix}rank_math_analytics_gsc
 				WHERE clicks > 0 AND created BETWEEN %s AND %s
 			    GROUP BY created
@@ -209,9 +180,9 @@ class Summary extends Objects {
 		$stats = $wpdb->get_row( $query ); // phpcs:ignore
 
 		$query     = $wpdb->prepare(
-			"SELECT ROUND(AVG(keywords),0) as keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr
+			"SELECT ROUND(AVG(keywords),0) as keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr, AVG(position) AS position
 			 FROM (
-				 SELECT count(DISTINCT(query)) AS keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr
+				 SELECT count(DISTINCT(query)) AS keywords, SUM(impressions) AS impressions, SUM(clicks) AS clicks, AVG(ctr) AS ctr, AVG(position) AS position
  				FROM {$wpdb->prefix}rank_math_analytics_gsc
  				WHERE clicks > 0 AND created BETWEEN %s AND %s
  			    GROUP BY created
@@ -246,32 +217,15 @@ class Summary extends Objects {
 			'difference' => (float) \number_format( $stats->ctr - $old_stats->ctr, 2 ),
 		];
 
+		$keywords->position = [
+			'total'      => (float) \number_format( $stats->position, 2 ),
+			'previous'   => (float) \number_format( $old_stats->position, 2 ),
+			'difference' => (float) \number_format( $stats->position - $old_stats->position, 2 ),
+		];
+
 		$keywords->graph = $this->get_analytics_summary_graph();
 
 		return $keywords;
-	}
-
-	/**
-	 * Get keywords summary.
-	 *
-	 * @return array
-	 */
-	public function get_pageviews_summary() {
-		$pageviews = DB::traffic()
-			->selectSum( 'pageviews', 'pageviews' )
-			->whereBetween( 'created', [ $this->start_date, $this->end_date ] )
-			->getVar();
-
-		$old_pageviews = DB::traffic()
-			->selectSum( 'pageviews', 'pageviews' )
-			->whereBetween( 'created', [ $this->compare_start_date, $this->compare_end_date ] )
-			->getVar();
-
-		return [
-			'total'      => (int) $pageviews,
-			'previous'   => (int) $old_pageviews,
-			'difference' => $pageviews - $old_pageviews,
-		];
 	}
 
 	/**
@@ -282,15 +236,8 @@ class Summary extends Objects {
 	public function get_analytics_summary_graph() {
 		global $wpdb;
 
-		$data          = new \stdClass();
-		$interval      = $this->get_sql_range( 'created' );
-		$data->traffic = DB::traffic()
-			->select( 'DATE_FORMAT( created,\'%Y-%m-%d\') as date' )
-			->selectSum( 'pageviews', 'pageviews' )
-			->whereBetween( 'created', [ $this->start_date, $this->end_date ] )
-			->groupBy( $interval )
-			->orderBy( 'created', 'ASC' )
-			->get();
+		$data     = new \stdClass();
+		$interval = $this->get_sql_range( 'created' );
 
 		$data->analytics = DB::analytics()
 			->distinct()
@@ -305,8 +252,7 @@ class Summary extends Objects {
 			->orderBy( 'created', 'ASC' )
 			->get();
 
-		$data->adsense = $this->get_adsense_graph();
-
+		// phpcs:disable
 		$query = $wpdb->prepare(
 			"SELECT DATE_FORMAT( created, '%%Y-%%m-%%d') as date, ROUND(AVG(keywords),0) as keywords
 			 FROM (
@@ -319,7 +265,8 @@ class Summary extends Objects {
 			$this->start_date,
 			$this->end_date
 		);
-		$data->keywords = $wpdb->get_results( $query ); // phpcs:ignore
+		$data->keywords = $wpdb->get_results( $query );
+		// phpcs:enable
 
 		$intervals    = $this->get_intervals();
 		$data->merged = $this->get_date_array(
@@ -335,56 +282,18 @@ class Summary extends Objects {
 		);
 
 		// Convert types.
-		$data->traffic   = array_map( [ $this, 'normalize_graph_rows' ], $data->traffic );
-		$data->adsense   = array_map( [ $this, 'normalize_graph_rows' ], $data->adsense );
 		$data->analytics = array_map( [ $this, 'normalize_graph_rows' ], $data->analytics );
 
 		// Merge for performance.
 		$data->merged = $this->get_merge_data_graph( $data->analytics, $data->merged, $intervals['map'] );
 		$data->merged = $this->get_merge_data_graph( $data->keywords, $data->merged, $intervals['map'] );
-		$data->merged = $this->get_merge_data_graph( $data->traffic, $data->merged, $intervals['map'] );
-		$data->merged = $this->get_merge_data_graph( $data->adsense, $data->merged, $intervals['map'] );
+
+		// For developers.
+		$data = apply_filters( 'rank_math/analytics/analytics_summary_graph', $data, $intervals );
+
 		$data->merged = $this->get_graph_data_flat( $data->merged );
 		$data->merged = array_values( $data->merged );
 
 		return $data;
-	}
-
-	/**
-	 * Get adsense graph data.
-	 *
-	 * @return array
-	 */
-	public function get_adsense_graph() {
-		$interval = $this->get_sql_range( 'created' );
-		return DB::adsense()
-			->select( 'DATE_FORMAT( created,\'%Y-%m-%d\') as date' )
-			->selectSum( 'earnings', 'earnings' )
-			->whereBetween( 'created', [ $this->start_date, $this->end_date ] )
-			->groupBy( $interval )
-			->orderBy( 'created', 'ASC' )
-			->get();
-	}
-
-	/**
-	 * Sort by time.
-	 *
-	 * @param  string $date1 Date to compare.
-	 * @param  string $date2 Date to compare.
-	 * @return int
-	 */
-	protected function sort_by_time( $date1, $date2 ) {
-		$time1 = strtotime( $date1 );
-		$time2 = strtotime( $date2 );
-
-		if ( $time1 > $time2 ) {
-			return 1;
-		}
-
-		if ( $time1 < $time2 ) {
-			return -1;
-		}
-
-		return 0;
 	}
 }

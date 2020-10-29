@@ -3,7 +3,7 @@
 class ITSEC_Admin_Notice_New_Feature_Core implements ITSEC_Admin_Notice {
 
 	public function get_id() {
-		return 'release-site-scanner';
+		return 'release-rcp';
 	}
 
 	public function get_title() {
@@ -11,19 +11,7 @@ class ITSEC_Admin_Notice_New_Feature_Core implements ITSEC_Admin_Notice {
 	}
 
 	public function get_message() {
-		if ( ITSEC_Core::is_pro() ) {
-			return sprintf(
-				esc_html__( 'The new, improved %1$sWordPress Security Site Scan%2$s powered by iThemes performs automatic checks for known website vulnerabilities and, if a patch is available, iThemes Security Pro will now automatically apply the fix for you.', 'better-wp-security' ),
-				'<a href="{{ $blog }}">',
-				'</a>'
-			);
-		}
-
-		return sprintf(
-			esc_html__( 'The new, improved %1$sWordPress Security Site Scan powered by iThemes checks if Google has detected malware and added your site to their threat list', 'better-wp-security' ),
-			'<a href="{{ $blog }}">',
-			'</a>'
-		);
+		return esc_html__( 'iThemes Security Pro Now Integrates with Restrict Content Pro.', 'better-wp-security' );
 	}
 
 	public function get_meta() {
@@ -41,13 +29,13 @@ class ITSEC_Admin_Notice_New_Feature_Core implements ITSEC_Admin_Notice {
 	public function get_actions() {
 		return array(
 			'blog' => new ITSEC_Admin_Notice_Action_Link(
-				add_query_arg( 'itsec_view_release_post', 'user-groups', admin_url( 'index.php' ) ),
-				esc_html__( 'See How It Works', 'better-wp-security' ),
+				add_query_arg( 'itsec_view_release_post', 'release-ban-users', admin_url( 'index.php' ) ),
+				esc_html__( 'See what’s new', 'better-wp-security' ),
 				ITSEC_Admin_Notice_Action::S_PRIMARY,
 				function () {
 					$this->handle_dismiss();
 
-					wp_redirect( 'https://ithemes.com/new-protect-your-wordpress-website-with-the-ithemes-security-site-scan/' );
+					wp_redirect( 'https://ithemes.com/?p=59484' );
 					die;
 				}
 			)
@@ -77,4 +65,7 @@ class ITSEC_Admin_Notice_New_Feature_Core implements ITSEC_Admin_Notice {
 	}
 }
 
-ITSEC_Lib_Admin_Notices::register( new ITSEC_Admin_Notice_Globally_Dismissible( new ITSEC_Admin_Notice_Managers_Only( new ITSEC_Admin_Notice_New_Feature_Core() ) ) );
+if ( time() > 1603206000 ) {
+	ITSEC_Lib_Admin_Notices::register( new ITSEC_Admin_Notice_Globally_Dismissible( new ITSEC_Admin_Notice_Managers_Only( new ITSEC_Admin_Notice_New_Feature_Core() ) ) );
+}
+

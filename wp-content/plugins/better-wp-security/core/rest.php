@@ -17,6 +17,7 @@ class ITSEC_REST {
 	 */
 	public function rest_api_init() {
 		ITSEC_Modules::load_module_file( 'rest.php', ':active' );
+		ITSEC_Modules::get_container()->get( \iThemesSecurity\Ban_Hosts\REST::class )->register_routes();
 	}
 
 	/**

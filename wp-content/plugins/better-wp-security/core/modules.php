@@ -660,7 +660,7 @@ final class ITSEC_Modules {
 	public static function initialize_container() {
 		$load = require __DIR__ . '/container.php';
 
-		if ( is_callable( $load ) ) {
+		if ( is_callable( $load ) && ! self::get_instance()->initialized_container ) {
 			$load( self::get_instance()->pimple );
 		}
 

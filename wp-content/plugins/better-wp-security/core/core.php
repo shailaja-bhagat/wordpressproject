@@ -26,7 +26,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		 *
 		 * @access private
 		 */
-		private $plugin_build = 4119;
+		private $plugin_build = 4121;
 
 		/**
 		 * Used to distinguish between a user modifying settings and the API modifying settings (such as from Sync
@@ -274,6 +274,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			do_action( 'itsec_initialized' );
 
 			ITSEC_Lib_Remote_Messages::init();
+			$this->run_integrations();
 		}
 
 		/**
@@ -282,15 +283,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 		private function setup_tables() {
 			global $wpdb;
 
-			$wpdb->global_tables[] = 'itsec_logs';
-			$wpdb->global_tables[] = 'itsec_log';
-			$wpdb->global_tables[] = 'itsec_lockouts';
-			$wpdb->global_tables[] = 'itsec_temp';
-			$wpdb->global_tables[] = 'itsec_distributed_storage';
-			$wpdb->global_tables[] = 'itsec_geolocation_cache';
-			$wpdb->global_tables[] = 'itsec_fingerprints';
-			$wpdb->global_tables[] = 'itsec_user_groups';
-			$wpdb->global_tables[] = 'itsec_mutexes';
+			$wpdb->global_tables = array_merge( $wpdb->global_tables, ITSEC_Schema::TABLES );
 		}
 
 		private function setup_scheduler() {
@@ -504,6 +497,15 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 
 			if ( ! ITSEC_Core::is_pro() ) {
 				ITSEC_Modules::register_module( 'pro-module-upsells', "$path/modules/pro", 'always-active' );
+			}
+		}
+
+		/**
+		 * Runs any global ITSEC integrations.
+		 */
+		private function run_integrations() {
+			if ( function_exists( 'restrict_content_pro' ) ) {
+				require_once self::get_core_dir() . '/integrations/rcp.php';
 			}
 		}
 
@@ -744,7 +746,7 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 				return '';
 			}
 
-			if ( ithemes_updater_is_licensed_site_url_confirmed() ) {
+			if ( ! ithemes_updater_is_licensed_site_url_confirmed() ) {
 				return '';
 			}
 
@@ -800,21 +802,29 @@ if ( ! class_exists( 'ITSEC_Core' ) ) {
 			return $url;
 		}
 
-		public static function get_logs_page_url( $module = false, $type = false ) {
+		public static function get_logs_page_url( $filters = false, $deprecated = false ) {
 			$url = network_admin_url( 'admin.php?page=itsec-logs' );
 
-			$filters = array();
+			if ( is_string( $filters ) ) {
+				_deprecated_argument( __METHOD__, '6.7.0', __( 'Passing a module as a single parameter is no longer supported. Pass a filters array instead.', 'better-wp-security' ) );
 
-			if ( $module ) {
-				$filters[] = rawurlencode( "module|{$module}" );
+				$filters           = array();
+				$filters['module'] = $filters;
 			}
 
-			if ( $type ) {
-				$filters[] = rawurlencode( "type|{$type}" );
+			if ( $deprecated ) {
+				_deprecated_argument( __METHOD__, '6.7.0', __( 'Passing the log type as the second parameter is no longer supported. Pass a filters array instead.', 'better-wp-security' ) );
+				$filters['type'] = $deprecated;
 			}
 
 			if ( $filters ) {
-				$url = add_query_arg( array( 'filters' => $filters ), $url );
+				$formatted = array();
+
+				foreach ( $filters as $filter => $value ) {
+					$formatted[] = rawurlencode( "{$filter}|{$value}" );
+				}
+
+				$url = add_query_arg( array( 'filters' => $formatted ), $url );
 			}
 
 			return $url;

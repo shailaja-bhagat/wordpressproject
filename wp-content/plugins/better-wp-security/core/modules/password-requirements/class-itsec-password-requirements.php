@@ -202,6 +202,10 @@ class ITSEC_Password_Requirements {
 	protected function handle_password_updated( $user ) {
 		delete_user_meta( $user->ID, 'itsec_password_change_required' );
 		update_user_meta( $user->ID, 'itsec_last_password_change', ITSEC_Core::get_current_time_gmt() );
+
+		foreach ( ITSEC_Lib_Password_Requirements::get_registered() as $code => $requirement ) {
+			delete_user_meta( $user->ID, $requirement['meta'] );
+		}
 	}
 
 	/**
@@ -469,6 +473,8 @@ class ITSEC_Password_Requirements {
 		if ( is_wp_error( $error ) ) {
 			return $error;
 		}
+
+		$this->handle_plain_text_password_available( $user, $data['pass1'] );
 
 		return null;
 	}
