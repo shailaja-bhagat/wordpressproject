@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="//fortifytelehealth.com/main-sitemap.xsl"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<sitemap>
-		<loc>http://fortifytelehealth.com/post-sitemap.xml</loc>
+		<loc>https://fortifytelehealth.com/post-sitemap.xml</loc>
 		<lastmod>2020-10-30T14:46:28+00:00</lastmod>
 	</sitemap>
 	<sitemap>
-		<loc>http://fortifytelehealth.com/page-sitemap.xml</loc>
-		<lastmod>2020-11-03T11:33:31+00:00</lastmod>
+		<loc>https://fortifytelehealth.com/page-sitemap.xml</loc>
+		<lastmod>2020-11-06T15:28:03+00:00</lastmod>
 	</sitemap>
 	<sitemap>
-		<loc>http://fortifytelehealth.com/tcb_symbol-sitemap.xml</loc>
+		<loc>https://fortifytelehealth.com/tcb_symbol-sitemap.xml</loc>
 		<lastmod>2020-10-08T16:29:21+00:00</lastmod>
 	</sitemap>
 	<sitemap>
-		<loc>http://fortifytelehealth.com/category-sitemap.xml</loc>
+		<loc>https://fortifytelehealth.com/category-sitemap.xml</loc>
 		<lastmod>2020-10-30T14:46:28+00:00</lastmod>
 	</sitemap>
 </sitemapindex>
